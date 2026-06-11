@@ -12,7 +12,7 @@
             <form>
                 <group name="tax" string="Tax">
                     <field
-                        name="parent_id"
+                        name="cutoff_line_id"
                         invisible="not context.get('account_cutoff_tax_line_main_view', False)"
                     />
                     <field name="tax_id" />
@@ -41,7 +41,7 @@
         <field name="arch" type="xml">
             <list>
                 <field
-                    name="parent_id"
+                    name="cutoff_line_id"
                     column_invisible="not context.get('account_cutoff_tax_line_main_view', False)"
                 />
                 <field name="tax_id" />

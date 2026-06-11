@@ -11,14 +11,14 @@ class AccountCutoffTaxLine(models.Model):
     _check_company_auto = True
     _description = "Account Cut-off Tax Line"
 
-    parent_id = fields.Many2one(
+    cutoff_line_id = fields.Many2one(
         "account.cutoff.line",
         string="Account Cut-off Line",
         ondelete="cascade",
         required=True,
     )
     company_id = fields.Many2one(
-        "res.company", related="parent_id.company_id", store=True
+        "res.company", related="cutoff_line_id.company_id", store=True
     )
     tax_id = fields.Many2one(
         "account.tax", string="Tax", required=True, check_company=True
@@ -46,8 +46,10 @@ class AccountCutoffTaxLine(models.Model):
         readonly=True,
         help="Tax Cut-off Amount in the company currency.",
     )
-    currency_id = fields.Many2one(related="parent_id.currency_id", string="Currency")
+    currency_id = fields.Many2one(
+        related="cutoff_line_id.currency_id", string="Currency"
+    )
     company_currency_id = fields.Many2one(
-        related="parent_id.company_currency_id",
+        related="cutoff_line_id.company_currency_id",
         string="Company Currency",
     )

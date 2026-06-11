@@ -378,7 +378,7 @@ class TestAccountCutoff(AccountCutoffCommon):
             }
         )
         action = cutoff.button_line_list()
-        self.assertEqual(action["domain"], [("parent_id", "=", cutoff.id)])
+        self.assertEqual(action["domain"], [("cutoff_id", "=", cutoff.id)])
 
     def test_get_mapping_dict_returns_mapped_accounts(self):
         cutoff = self.env["account.cutoff"].create(

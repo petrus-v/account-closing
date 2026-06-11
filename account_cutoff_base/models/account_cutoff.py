@@ -104,7 +104,7 @@ class AccountCutoff(models.Model):
     )
     line_ids = fields.One2many(
         comodel_name="account.cutoff.line",
-        inverse_name="parent_id",
+        inverse_name="cutoff_id",
         string="Cut-off Lines",
     )
     state = fields.Selection(
@@ -186,8 +186,8 @@ class AccountCutoff(models.Model):
     @api.depends("line_ids", "line_ids.cutoff_amount")
     def _compute_total_cutoff(self):
         rg_res = self.env["account.cutoff.line"]._read_group(
-            [("parent_id", "in", self.ids)],
-            groupby=["parent_id"],
+            [("cutoff_id", "in", self.ids)],
+            groupby=["cutoff_id"],
             aggregates=["cutoff_amount:sum"],
         )
         mapped_data = {parent.id: amount for (parent, amount) in rg_res}
@@ -383,7 +383,7 @@ class AccountCutoff(models.Model):
         )
         action.update(
             {
-                "domain": [("parent_id", "=", self.id)],
+                "domain": [("cutoff_id", "=", self.id)],
                 "views": False,
             }
         )

@@ -13,7 +13,7 @@
                 <group name="main">
                     <group name="source" string="Source">
                         <field
-                            name="parent_id"
+                            name="cutoff_id"
                             invisible="not context.get('account_cutoff_line_main_view', False)"
                         />
                         <field name="partner_id" />
@@ -60,7 +60,7 @@
         <field name="arch" type="xml">
             <list>
                 <field
-                    name="parent_id"
+                    name="cutoff_id"
                     column_invisible="not context.get('account_cutoff_line_main_view', False)"
                 />
                 <field name="partner_id" />

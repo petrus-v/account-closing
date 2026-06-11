@@ -11,14 +11,14 @@ class AccountCutoffLine(models.Model):
     _check_company_auto = True
     _description = "Account Cut-off Line"
 
-    parent_id = fields.Many2one("account.cutoff", string="Cut-off", ondelete="cascade")
-    cutoff_type = fields.Selection(related="parent_id.cutoff_type")
+    cutoff_id = fields.Many2one("account.cutoff", string="Cut-off", ondelete="cascade")
+    cutoff_type = fields.Selection(related="cutoff_id.cutoff_type")
     company_id = fields.Many2one(
-        "res.company", related="parent_id.company_id", store=True
+        "res.company", related="cutoff_id.company_id", store=True
     )
     name = fields.Char("Description")
     company_currency_id = fields.Many2one(
-        related="parent_id.company_currency_id",
+        related="cutoff_id.company_currency_id",
         string="Company Currency",
     )
     partner_id = fields.Many2one("res.partner", string="Partner", readonly=True)
@@ -75,7 +75,7 @@ class AccountCutoffLine(models.Model):
     )
     tax_line_ids = fields.One2many(
         "account.cutoff.tax.line",
-        "parent_id",
+        "cutoff_line_id",
         string="Cut-off Tax Lines",
         readonly=True,
     )
